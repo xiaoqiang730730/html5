@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>star-night</title>
+</head>
+<body style="height:100%">
+	<canvas id="canvas" style="height:100%;width:100%"></canvas>
+	<script>
+		var height=document.documentElement.clientHeight;
+		var width=document.documentElement.clientWidth;
+		window.onload=function(){
+		var canvas=document.getElementById("canvas");
+		canvas.width=width;
+		canvas.height=height;
+		var context=canvas.getContext("2d");
+		var grd=context.createLinearGradient(0,height,0,0);
+		grd.addColorStop(1.0,'black');
+		grd.addColorStop(0.8,'061439');
+		grd.addColorStop(0.6,'1A2050');
+		grd.addColorStop(0.4,'564474');
+		grd.addColorStop(0.2,'B0828D');
+		grd.addColorStop(0.0,'E49E59');
+		// var grd=context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height);
+		// grd.addColorStop(0.0,'E49E59');
+		// grd.addColorStop(0.5,'#035');
+		// grd.addColorStop(1.0,'black');
+		context.fillStyle=grd;
+		context.fillRect(0,0,width,height);
+		for(var i=0;i<200;i++){
+			var r=Math.random()*5+5;
+			var x=Math.random()*canvas.width;
+			var y=Math.random()*canvas.height*0.35;
+			var a=Math.random()*360;
+		drawstar(context,x,y,r,a);
+
+
+	}
+	};
+
+		function drawstar(context,x,y,r,rot){
+			context.save();
+			context.translate(x, y);
+			context.scale(r,r);
+			context.rotate(rot*Math.PI/180);
+			starPath(context);
+			//context.lineWidth=5;
+			//context.lineJoin="round";
+			
+			context.fillStyle="#fb3";
+			//context.strokeStyle="#fb5";
+			context.fill();
+			//context.stroke();
+			context.restore();			
+		}
+		function starPath(context){
+			context.beginPath();
+			for(var i=0;i<5;i++){
+				context.lineTo(Math.cos((18+i*72)/180*Math.PI),-Math.sin((18+i*72)/180*Math.PI));
+				context.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,-Math.sin((54+i*72)/180*Math.PI)*0.5);
+
+			}
+			context.closePath();
+		}
+	</script>
+</body>
+</html>
